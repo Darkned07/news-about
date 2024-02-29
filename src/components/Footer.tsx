@@ -1,5 +1,3 @@
-import React from "react";
-
 function Footer() {
   return (
     <div className="max-container py-[10px]">
