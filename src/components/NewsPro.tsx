@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 function NewsPro() {
   const { id } = useParams();
-  const [data, setData] = useState();
+  const [data, setData]: any = useState();
 
   useEffect(() => {
     const getData = (url: string) => {

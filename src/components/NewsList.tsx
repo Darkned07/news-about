@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 function NewsList() {
-  const [data, setData] = useState();
+  const [data, setData]: any = useState();
   useEffect(() => {
     const getData = (url: string) => {
       fetch(url)
@@ -16,7 +16,7 @@ function NewsList() {
     <div>
       <ul className="flex flex-col gap-[20px]">
         {data &&
-          data.map((d) => {
+          data.map((d: any) => {
             return (
               <li key={d.id}>
                 <div className="card lg:card-side bg-base-100  shadow-2xl ">

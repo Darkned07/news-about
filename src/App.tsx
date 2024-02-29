@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import MainLayout from "./layouts/MainLayout";
 import Home from "./pages/Home";
 import NewsPro from "./components/NewsPro";
+import Create from "./pages/Create";
 
 function App() {
   const routes = createBrowserRouter([
@@ -16,6 +17,10 @@ function App() {
         {
           path: "/news/:id",
           element: <NewsPro />,
+        },
+        {
+          path: "/create",
+          element: <Create />,
         },
       ],
     },
