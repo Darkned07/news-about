@@ -1,11 +1,45 @@
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+import { useFetch } from "../hooks/useFetch";
+import { v4 as uuidv4 } from "uuid";
+import { Navigate, useNavigate } from "react-router-dom";
 
 function Create() {
+  const [value, setValue] = useState("");
   const title: any = useRef();
   const image: any = useRef();
   const postedAt: any = useRef();
-  const description: any = useRef();
+  const { data, setIsPending, error, addNewPost } = useFetch(
+    "http://localhost:3000/news",
+    "POST"
+  );
+  const navigate = useNavigate();
+
+  const toolbarOptions = [
+    ["bold", "italic", "underline", "strike"], // toggled buttons
+    ["blockquote", "code-block"],
+    ["link", "image", "video", "formula"],
+
+    [{ header: 1 }, { header: 2 }], // custom button values
+    [{ list: "ordered" }, { list: "bullet" }, { list: "check" }],
+    [{ script: "sub" }, { script: "super" }], // superscript/subscript
+    [{ indent: "-1" }, { indent: "+1" }], // outdent/indent
+    [{ direction: "rtl" }], // text direction
+
+    [{ size: ["small", false, "large", "huge"] }], // custom dropdown
+    [{ header: [1, 2, 3, 4, 5, 6, false] }],
+
+    [{ color: [] }, { background: [] }], // dropdown with defaults from theme
+    [{ font: [] }],
+    [{ align: [] }],
+
+    ["clean"], // remove formatting button
+  ];
+  const module = {
+    toolbar: toolbarOptions,
+  };
   const handleSubmit = (e: any) => {
     e.preventDefault();
 
@@ -13,17 +47,24 @@ function Create() {
       title.current.value.trim().length > 1 &&
       image.current.value.trim().length > 1 &&
       postedAt.current.value.trim().length > 1 &&
-      description.current.value.trim().length > 1
+      value.trim().length > 1
     ) {
-      console.log({
+      setIsPending(true);
+      const d = {
+        id: uuidv4(),
         title: title.current.value,
         image: image.current.value,
         postedAt: postedAt.current.value,
-        description: description.current.value,
-      });
+        body: value,
+      };
+      addNewPost(d);
+      setTimeout(() => {
+        navigate("/");
+      }, 2000);
       toast.success("Malumotlar kiritildi :)");
     } else {
       toast.error("Iltimos barcha inputlarni to'ldiring!");
+      toast.error(error);
     }
   };
 
@@ -61,16 +102,13 @@ function Create() {
             placeholder="Posted time writing..."
           />
         </label>
-        <label className="form-control">
-          <div className="label">
-            <span className="label-text">Description:</span>
-          </div>
-          <textarea
-            ref={description}
-            className="textarea textarea-bordered h-24"
-            placeholder="Description writing..."
-          ></textarea>
-        </label>
+
+        <ReactQuill
+          modules={module}
+          theme="snow"
+          value={value}
+          onChange={setValue}
+        />
         <button className="btn btn-outline btn-neutral text-[25px]">
           Create
         </button>

@@ -1,17 +1,8 @@
-import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
+import { useFetch } from "../hooks/useFetch";
 function NewsList() {
-  const [data, setData]: any = useState();
-  useEffect(() => {
-    const getData = (url: string) => {
-      fetch(url)
-        .then((doc) => doc.json())
-        .then((data) => setData(data))
-        .catch((error) => console.log(error));
-    };
-    getData("http://localhost:3000/news");
-  }, []);
+  const { data, error, setIsPending } = useFetch("http://localhost:3000/news");
+
   return (
     <div>
       <ul className="flex flex-col gap-[20px]">
@@ -27,9 +18,8 @@ function NewsList() {
                       alt={d.title}
                     />
                   </figure>
-                  <div className="card-body">
+                  <div className="card-body flex flex-col justify-between">
                     <h2 className="card-title">{d.title}</h2>
-                    <p>{d.description.slice(0, 200)}...</p>
                     <div className="card-actions justify-end">
                       <Link
                         to={`/news/${d.id}`}

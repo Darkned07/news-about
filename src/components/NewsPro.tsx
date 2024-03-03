@@ -1,6 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-
+import parse from "html-react-parser";
 function NewsPro() {
   const { id } = useParams();
   const [data, setData]: any = useState();
@@ -32,7 +32,7 @@ function NewsPro() {
           <div className="card-body">
             <h2 className="card-title opacity-50 underline">{data.postedAt}</h2>
             <h2 className="card-title mb-[30px] text-[30px]">{data.title}</h2>
-            <p>{data.description}</p>
+            <div className="flex flex-col items-center">{parse(data.body)}</div>
             <div className="card-actions justify-end">
               <Link to="/" className="btn btn-outline btn-neutral">
                 Bask
