@@ -3,6 +3,8 @@ import MainLayout from "./layouts/MainLayout";
 import Home from "./pages/Home";
 import NewsPro from "./components/NewsPro";
 import Create from "./pages/Create";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
 
 function App() {
   const routes = createBrowserRouter([
@@ -21,6 +23,14 @@ function App() {
         {
           path: "/create",
           element: <Create />,
+        },
+        {
+          path: "/about",
+          element: <About />,
+        },
+        {
+          path: "/contact",
+          element: <Contact />,
         },
       ],
     },
