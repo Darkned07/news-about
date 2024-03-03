@@ -1,17 +1,17 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { toast } from "react-toastify";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { useFetch } from "../hooks/useFetch";
 import { v4 as uuidv4 } from "uuid";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Create() {
   const [value, setValue] = useState("");
   const title: any = useRef();
   const image: any = useRef();
   const postedAt: any = useRef();
-  const { data, setIsPending, error, addNewPost } = useFetch(
+  const { setIsPending, error, addNewPost } = useFetch(
     "http://localhost:3000/news",
     "POST"
   );

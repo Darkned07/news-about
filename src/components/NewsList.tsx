@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useFetch } from "../hooks/useFetch";
 function NewsList() {
-  const { data, error, setIsPending } = useFetch("http://localhost:3000/news");
+  const { data } = useFetch("http://localhost:3000/news");
 
   return (
     <div>

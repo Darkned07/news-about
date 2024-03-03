@@ -25,11 +25,9 @@ function useFetch(url: string, method: string = "GET") {
         const req = await fetch(url, {
           ...fetchOptons,
         });
-
         if (!req.ok) {
           throw new Error("Something error");
         }
-
         const data = await req.json();
         setData(data);
         setError(null);
@@ -48,7 +46,7 @@ function useFetch(url: string, method: string = "GET") {
     }
   }, [url, method, fetchOptions]);
 
-  return { data, setIsPending, error, addNewPost };
+  return { data, isPending, setIsPending, error, addNewPost };
 }
 
 export { useFetch };
