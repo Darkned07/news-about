@@ -35,7 +35,7 @@ function NewsPro() {
             <div className="flex flex-col items-center">{parse(data.body)}</div>
             <div className="card-actions justify-end">
               <Link to="/" className="btn btn-outline btn-neutral">
-                Bask
+                Back
               </Link>
             </div>
           </div>

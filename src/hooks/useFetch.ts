@@ -18,6 +18,11 @@ function useFetch(url: string, method: string = "GET") {
       body: JSON.stringify(newPost),
     });
   };
+  const del = () => {
+    setFetchOptions({
+      method: "DELETE",
+    });
+  };
   useEffect(() => {
     const fetchData = async (fetchOptons?: object) => {
       setIsPending(true);
@@ -44,9 +49,12 @@ function useFetch(url: string, method: string = "GET") {
     if (method == "GET") {
       fetchData();
     }
+    if (fetchOptions && method == "DELETE") {
+      fetchData(fetchOptions);
+    }
   }, [url, method, fetchOptions]);
 
-  return { data, isPending, setIsPending, error, addNewPost };
+  return { data, isPending, setIsPending, error, addNewPost, del };
 }
 
 export { useFetch };

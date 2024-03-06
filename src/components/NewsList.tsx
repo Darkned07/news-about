@@ -1,7 +1,16 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useFetch } from "../hooks/useFetch";
-function NewsList() {
-  const { data } = useFetch("http://localhost:3000/news");
+import { useEffect, useState } from "react";
+
+function NewsList({ data, set }: any) {
+  const [id, setId] = useState("");
+  const { del } = useFetch("http://localhost:3000/news/" + id, "DELETE");
+
+  const handleNav = () => {
+    setTimeout(() => {
+      set(false);
+    }, 1000);
+  };
 
   return (
     <div>
@@ -27,6 +36,16 @@ function NewsList() {
                       >
                         Read More
                       </Link>
+                      <button
+                        onClick={() => {
+                          handleNav();
+                          setId(d.id);
+                          del();
+                        }}
+                        className="btn btn-outline btn-neutral"
+                      >
+                        Delete
+                      </button>
                     </div>
                   </div>
                 </div>
